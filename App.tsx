@@ -88,7 +88,7 @@ const App: React.FC = () => {
                 </AnimatePresence>
               </div>
               <span className="text-[10px] text-zinc-500 tracking-[0.2em] uppercase font-bold pl-0.5">
-                EST. 2024
+                EST. 2023
               </span>
             </div>
           </div>
