@@ -5,12 +5,13 @@ import { ArrowRight, Sparkles, Check, Plus, ExternalLink } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
-  isInCart: boolean;
-  onToggleCart: () => void;
+  quantity: number;
+  onAddToCart: () => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onToggleCart }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, quantity, onAddToCart }) => {
   const isDiscount = !!product.oldPrice;
+  const isInCart = quantity > 0;
 
   return (
     <div className="group relative bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-900/20 flex flex-col h-full">
@@ -56,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onT
 
           <div className="flex items-center gap-2">
             <button
-              onClick={onToggleCart}
+              onClick={onAddToCart}
               className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold transition-all active:scale-95 hover:shadow-lg ${
                 isInCart 
                   ? 'bg-purple-700 text-white shadow-purple-900/30' 
@@ -66,7 +67,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onT
               {isInCart ? (
                 <>
                   <Check className="w-4 h-4" />
-                  <span>В корзине</span>
+                  <span>Добавить ещё ({quantity})</span>
                 </>
               ) : (
                 <>

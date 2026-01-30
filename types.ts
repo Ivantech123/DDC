@@ -31,4 +31,5 @@ export enum Tab {
   SHOP = 'SHOP',
   REVIEWS = 'REVIEWS',
   GUIDE = 'GUIDE',
+  CART = 'CART',
 }
