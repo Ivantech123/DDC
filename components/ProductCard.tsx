@@ -59,8 +59,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onT
               onClick={onToggleCart}
               className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold transition-all active:scale-95 hover:shadow-lg ${
                 isInCart 
-                  ? 'bg-purple-600 text-white hover:bg-purple-700 shadow-purple-900/20' 
-                  : 'bg-white text-black hover:bg-purple-50 hover:shadow-white/10'
+                  ? 'bg-purple-700 text-white shadow-purple-900/30' 
+                  : 'bg-purple-600 text-white hover:bg-purple-700 shadow-purple-900/20'
               }`}
             >
               {isInCart ? (
@@ -86,6 +86,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onT
               <ExternalLink className="w-5 h-5" />
             </a>
           </div>
+
         </div>
       </div>
     </div>

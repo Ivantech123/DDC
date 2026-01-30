@@ -6,6 +6,7 @@ import { ReviewCard } from './components/ReviewCard';
 import { GuideCard } from './components/GuideCard';
 import { Tab } from './types';
 import { ShoppingBag, MessageSquareQuote, ExternalLink, Zap, BookOpen, Send, UserPlus, ShoppingCart, Crown, ArrowRight } from 'lucide-react';
+import logo from './logo/photo_2024-08-01_18-15-34.jpg';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.WELCOME);
@@ -53,11 +54,8 @@ const App: React.FC = () => {
         <div className="max-w-2xl mx-auto px-5 py-3 flex justify-between items-center h-[72px]">
           <div className="flex items-center gap-3">
             {/* Logo */}
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-white/10 shrink-0 overflow-hidden relative group">
-              <div className="absolute inset-0 bg-gradient-to-tr from-zinc-200 to-white z-0" />
-              <span className="relative z-10 text-black font-black text-[10px] leading-none text-center tracking-tighter">
-                DIRTY<br/>DUCK
-              </span>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-white/10 shrink-0 overflow-hidden relative group">
+              <img src={logo} alt="Dirty Duck Club" className="w-full h-full object-cover" />
             </div>
             
             {/* Dynamic Title */}
@@ -216,7 +214,7 @@ const App: React.FC = () => {
                 transition={pageTransition}
                 className="space-y-6"
               >
-                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden">
+                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden handwritten">
                    {/* Decorative background */}
                    <div className="absolute top-0 right-0 w-40 h-40 bg-purple-600/10 blur-[60px] rounded-full -mr-10 -mt-10 pointer-events-none" />
                    
@@ -242,8 +240,8 @@ const App: React.FC = () => {
                          Плащ
                        </p>
                      </div>
-                     <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center border border-zinc-700 shadow-lg">
-                        <span className="font-black text-white text-lg">ЧП</span>
+                   <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-zinc-700 shadow-lg overflow-hidden">
+                        <img src={logo} alt="Dirty Duck Club" className="w-full h-full object-cover" />
                      </div>
                    </div>
                 </div>

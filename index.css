@@ -1,1 +1,5 @@
 /* Base styles are defined in index.html via the Tailwind CDN. */
+.handwritten {
+  font-family: 'Bad Script', 'Comic Sans MS', cursive;
+  letter-spacing: 0.02em;
+}
