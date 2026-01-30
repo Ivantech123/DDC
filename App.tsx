@@ -173,7 +173,7 @@ const App: React.FC = () => {
                       href={TG_CHANNEL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#2AABEE] text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 hover:bg-[#229ED9] transition-all active:scale-95 hover:-translate-y-0.5"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-purple-600 text-white rounded-xl font-semibold shadow-lg shadow-purple-500/30 hover:bg-purple-700 transition-all active:scale-95 hover:-translate-y-0.5"
                     >
                       <UserPlus className="w-4 h-4" />
                       Подписаться на Канал
