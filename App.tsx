@@ -51,6 +51,7 @@ const App: React.FC = () => {
 
   const [showFullTitle, setShowFullTitle] = useState(true);
   const [welcomeFont, setWelcomeFont] = useState<WelcomeFontId>(WELCOME_FONTS[0].id);
+  const [isOfferOpen, setIsOfferOpen] = useState(false);
 
 
 
@@ -140,10 +141,10 @@ const App: React.FC = () => {
 
 
   const checkoutMessage = cartItems.length
-    ? 'Хочу купить:\n' + cartItems.map(item => `- ${item.title} x${cart[item.id]}`).join('\n')
-    : 'Хочу купить:';
+    ? '???? ????????:\n' + cartItems.map(item => `- ${item.title} x${cart[item.id]}`).join('\n')
+    : '???? ????????:';
 
-  const pageVariants = {
+const pageVariants = {
 
     initial: { opacity: 0, y: 10, scale: 0.98, filter: 'blur(4px)' },
 
@@ -563,21 +564,19 @@ const App: React.FC = () => {
                      <p className="text-[11px] text-zinc-400 font-semibold tracking-wide uppercase">
                        Шрифт приветствия
                      </p>
-                     <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-                       {WELCOME_FONTS.map((f) => (
-                         <button
-                           key={f.id}
-                           onClick={() => setWelcomeFont(f.id)}
-                           className={`handwritten handwritten--${f.id} px-2.5 py-1.5 rounded-lg text-[11px] border transition-all active:scale-95 ${
-                             welcomeFont === f.id
-                               ? 'bg-purple-600 text-white border-purple-400/60 shadow-lg shadow-purple-500/20'
-                               : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:bg-zinc-800'
-                           }`}
-                           type="button"
-                         >
-                           {f.label}
-                         </button>
-                       ))}
+                     <div className="min-w-[160px]">
+                       <select
+                         value={welcomeFont}
+                         onChange={(e) => setWelcomeFont(e.target.value as WelcomeFontId)}
+                         className={`handwritten handwritten--${welcomeFont} w-full bg-zinc-950/60 border border-zinc-800 text-zinc-200 text-[12px] rounded-lg px-3 py-2 outline-none focus:border-purple-500/60`}
+                         aria-label="Выбрать шрифт приветствия"
+                       >
+                         {WELCOME_FONTS.map((f) => (
+                           <option key={f.id} value={f.id}>
+                             {f.label}
+                           </option>
+                         ))}
+                       </select>
                      </div>
                    </div>
 
@@ -829,7 +828,7 @@ const App: React.FC = () => {
 
                     >
 
-                      Оплатить
+                      Написать в личку
 
                     </a>
 
@@ -949,6 +948,20 @@ const App: React.FC = () => {
 
           </AnimatePresence>
 
+        </div>
+
+        <div className="mt-10 pb-6 text-center text-xs text-zinc-500">
+          <button
+            type="button"
+            onClick={() => setIsOfferOpen(true)}
+            className="underline decoration-zinc-700 underline-offset-4 hover:text-zinc-300"
+          >
+            Оферта / дисклеймер
+          </button>
+          <p className="mt-2 leading-relaxed">
+            Все цифры на сайте указаны в информационных целях. Сайт не является интернет-магазином: продажа и прием оплаты
+            через сайт не осуществляются.
+          </p>
         </div>
 
       </main>
@@ -1086,6 +1099,69 @@ const App: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Offer / Disclaimer Modal */}
+      <AnimatePresence>
+        {isOfferOpen && (
+          <>
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/70 z-[60]"
+              onClick={() => setIsOfferOpen(false)}
+              aria-label="Закрыть оферту"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+              className="fixed inset-0 z-[61] flex items-end sm:items-center justify-center p-4"
+            >
+              <div className="w-full max-w-lg bg-zinc-950 border border-white/10 rounded-2xl shadow-2xl p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Оферта / дисклеймер</h3>
+                    <p className="text-xs text-zinc-500 mt-1">Актуально на 05.02.2026</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsOfferOpen(false)}
+                    className="text-xs text-zinc-400 hover:text-white"
+                  >
+                    Закрыть
+                  </button>
+                </div>
+
+                <div className="mt-4 space-y-3 text-sm text-zinc-300 leading-relaxed">
+                  <p>
+                    Сайт носит информационный характер. Все цифры (включая значения на карточках) приведены исключительно
+                    для удобства и не являются ценой продажи.
+                  </p>
+                  <p>
+                    Сайт не является интернет-магазином: продажа и прием оплаты через сайт не осуществляются. Все вопросы
+                    обсуждаются в личных сообщениях.
+                  </p>
+                  <p className="text-xs text-zinc-500">
+                    Информация на сайте не является публичной офертой.
+                  </p>
+                </div>
+
+                <a
+                  href={TG_CONTACT}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all active:scale-95 bg-purple-600 text-white hover:bg-purple-700 shadow-lg shadow-purple-500/30"
+                >
+                  Написать в личку
+                </a>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
     </div>
 
