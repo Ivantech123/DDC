@@ -25,6 +25,7 @@ const App: React.FC = () => {
   const [cart, setCart] = useState<Record<string, number>>({});
 
   const [showFullTitle, setShowFullTitle] = useState(true);
+  const [welcomeFont, setWelcomeFont] = useState<'bad-script' | 'caveat' | 'marck' | 'neucha'>('bad-script');
 
 
 
@@ -41,6 +42,18 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
 
   }, []);
+
+  // Persist welcome font choice across reloads.
+  useEffect(() => {
+    const saved = localStorage.getItem('ddc_welcome_font');
+    if (saved === 'bad-script' || saved === 'caveat' || saved === 'marck' || saved === 'neucha') {
+      setWelcomeFont(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('ddc_welcome_font', welcomeFont);
+  }, [welcomeFont]);
 
 
 
@@ -514,11 +527,38 @@ const App: React.FC = () => {
 
               >
 
-                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden handwritten">
+                <div className={`bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden handwritten handwritten--${welcomeFont}`}>
 
                    {/* Decorative background */}
 
                    <div className="absolute top-0 right-0 w-40 h-40 bg-purple-600/10 blur-[60px] rounded-full -mr-10 -mt-10 pointer-events-none" />
+
+                   <div className="relative z-10 flex items-center justify-between gap-3 mb-4">
+                     <p className="text-[11px] text-zinc-400 font-semibold tracking-wide uppercase">
+                       Шрифт приветствия
+                     </p>
+                     <div className="flex items-center gap-1.5">
+                       {([
+                         { id: 'bad-script', label: 'Bad' },
+                         { id: 'caveat', label: 'Caveat' },
+                         { id: 'marck', label: 'Marck' },
+                         { id: 'neucha', label: 'Neucha' },
+                       ] as const).map((f) => (
+                         <button
+                           key={f.id}
+                           onClick={() => setWelcomeFont(f.id)}
+                           className={`handwritten handwritten--${f.id} px-2.5 py-1.5 rounded-lg text-[11px] border transition-all active:scale-95 ${
+                             welcomeFont === f.id
+                               ? 'bg-purple-600 text-white border-purple-400/60 shadow-lg shadow-purple-500/20'
+                               : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:bg-zinc-800'
+                           }`}
+                           type="button"
+                         >
+                           {f.label}
+                         </button>
+                       ))}
+                     </div>
+                   </div>
 
                    
 
@@ -558,7 +598,7 @@ const App: React.FC = () => {
 
                        <p className="text-xs text-zinc-500 uppercase tracking-widest font-semibold mb-1">С Уважением,</p>
 
-                       <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 font-serif italic">
+                       <p className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">
 
                          Плащ
 

@@ -1,5 +1,23 @@
 /* Base styles are defined in index.html via the Tailwind CDN. */
 .handwritten {
-  font-family: 'Bad Script', 'Comic Sans MS', cursive;
   letter-spacing: 0.02em;
+}
+
+.handwritten--bad-script {
+  font-family: 'Bad Script', 'Comic Sans MS', cursive;
+}
+
+.handwritten--caveat {
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  letter-spacing: 0.01em;
+}
+
+.handwritten--marck {
+  font-family: 'Marck Script', 'Comic Sans MS', cursive;
+  letter-spacing: 0.015em;
+}
+
+.handwritten--neucha {
+  font-family: 'Neucha', 'Comic Sans MS', cursive;
+  letter-spacing: 0.01em;
 }
