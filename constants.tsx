@@ -20,7 +20,7 @@ export const PRODUCTS: Product[] = [
     id: '6',
     title: 'Книга «Жизнь как игра»',
     description: 'В этой книге ты поймешь о сути игры, правилах и о том, как стать лучшим для девушки. Минимум воды — только газ.',
-    price: 990,
+    price: 1490,
     currency: '₽',
     ctaLink: TG_CONTACT,
     ctaText: 'Купить новинку',

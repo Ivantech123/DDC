@@ -16,6 +16,31 @@ import { ShoppingBag, MessageSquareQuote, ExternalLink, Zap, BookOpen, Send, Use
 
 import logo from './logo/photo_2024-08-01_18-15-34.jpg';
 
+const WELCOME_FONTS = [
+  { id: 'bad-script', label: 'Bad' },
+  { id: 'caveat', label: 'Caveat' },
+  { id: 'marck', label: 'Marck' },
+  { id: 'neucha', label: 'Neucha' },
+  { id: 'dancing', label: 'Dancing' },
+  { id: 'lobster', label: 'Lobster' },
+  { id: 'lobster-two', label: 'Lobster2' },
+  { id: 'pacifico', label: 'Pacifico' },
+  { id: 'pattaya', label: 'Pattaya' },
+  { id: 'sofia', label: 'Sofia' },
+  { id: 'satisfy', label: 'Satisfy' },
+  { id: 'allura', label: 'Allura' },
+  { id: 'sacramento', label: 'Sacra' },
+  { id: 'comforter-brush', label: 'Brush' },
+  { id: 'indie-flower', label: 'Indie' },
+  { id: 'gloria', label: 'Gloria' },
+  { id: 'permanent', label: 'Marker' },
+  { id: 'shadows', label: 'Shadows' },
+  { id: 'architects', label: 'Arch' },
+  { id: 'reenie', label: 'Reenie' },
+] as const;
+
+type WelcomeFontId = (typeof WELCOME_FONTS)[number]['id'];
+
 
 
 const App: React.FC = () => {
@@ -25,7 +50,7 @@ const App: React.FC = () => {
   const [cart, setCart] = useState<Record<string, number>>({});
 
   const [showFullTitle, setShowFullTitle] = useState(true);
-  const [welcomeFont, setWelcomeFont] = useState<'bad-script' | 'caveat' | 'marck' | 'neucha'>('bad-script');
+  const [welcomeFont, setWelcomeFont] = useState<WelcomeFontId>(WELCOME_FONTS[0].id);
 
 
 
@@ -46,8 +71,9 @@ const App: React.FC = () => {
   // Persist welcome font choice across reloads.
   useEffect(() => {
     const saved = localStorage.getItem('ddc_welcome_font');
-    if (saved === 'bad-script' || saved === 'caveat' || saved === 'marck' || saved === 'neucha') {
-      setWelcomeFont(saved);
+    const ids = new Set(WELCOME_FONTS.map(f => f.id));
+    if (saved && ids.has(saved as WelcomeFontId)) {
+      setWelcomeFont(saved as WelcomeFontId);
     }
   }, []);
 
@@ -537,13 +563,8 @@ const App: React.FC = () => {
                      <p className="text-[11px] text-zinc-400 font-semibold tracking-wide uppercase">
                        Шрифт приветствия
                      </p>
-                     <div className="flex items-center gap-1.5">
-                       {([
-                         { id: 'bad-script', label: 'Bad' },
-                         { id: 'caveat', label: 'Caveat' },
-                         { id: 'marck', label: 'Marck' },
-                         { id: 'neucha', label: 'Neucha' },
-                       ] as const).map((f) => (
+                     <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                       {WELCOME_FONTS.map((f) => (
                          <button
                            key={f.id}
                            onClick={() => setWelcomeFont(f.id)}
@@ -745,7 +766,7 @@ const App: React.FC = () => {
                             <p className="text-xs text-zinc-500 mt-1">
 
                               {typeof item.price === 'number' ? item.price.toLocaleString() : item.price} {item.currency}
-
+ 
                             </p>
 
                           </div>
