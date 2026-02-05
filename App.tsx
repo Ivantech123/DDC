@@ -16,31 +16,6 @@ import { ShoppingBag, MessageSquareQuote, ExternalLink, Zap, BookOpen, Send, Use
 
 import logo from './logo/photo_2024-08-01_18-15-34.jpg';
 
-const WELCOME_FONTS = [
-  { id: 'bad-script', label: 'Bad' },
-  { id: 'caveat', label: 'Caveat' },
-  { id: 'marck', label: 'Marck' },
-  { id: 'neucha', label: 'Neucha' },
-  { id: 'dancing', label: 'Dancing' },
-  { id: 'lobster', label: 'Lobster' },
-  { id: 'lobster-two', label: 'Lobster2' },
-  { id: 'pacifico', label: 'Pacifico' },
-  { id: 'pattaya', label: 'Pattaya' },
-  { id: 'sofia', label: 'Sofia' },
-  { id: 'satisfy', label: 'Satisfy' },
-  { id: 'allura', label: 'Allura' },
-  { id: 'sacramento', label: 'Sacra' },
-  { id: 'comforter-brush', label: 'Brush' },
-  { id: 'indie-flower', label: 'Indie' },
-  { id: 'gloria', label: 'Gloria' },
-  { id: 'permanent', label: 'Marker' },
-  { id: 'shadows', label: 'Shadows' },
-  { id: 'architects', label: 'Arch' },
-  { id: 'reenie', label: 'Reenie' },
-] as const;
-
-type WelcomeFontId = (typeof WELCOME_FONTS)[number]['id'];
-
 
 
 const App: React.FC = () => {
@@ -50,7 +25,6 @@ const App: React.FC = () => {
   const [cart, setCart] = useState<Record<string, number>>({});
 
   const [showFullTitle, setShowFullTitle] = useState(true);
-  const [welcomeFont, setWelcomeFont] = useState<WelcomeFontId>(WELCOME_FONTS[0].id);
   const [isOfferOpen, setIsOfferOpen] = useState(false);
 
 
@@ -68,21 +42,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
 
   }, []);
-
-  // Persist welcome font choice across reloads.
-  useEffect(() => {
-    const saved = localStorage.getItem('ddc_welcome_font');
-    const ids = new Set(WELCOME_FONTS.map(f => f.id));
-    if (saved && ids.has(saved as WelcomeFontId)) {
-      setWelcomeFont(saved as WelcomeFontId);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('ddc_welcome_font', welcomeFont);
-  }, [welcomeFont]);
-
-
 
   const addToCart = (productId: string) => {
 
@@ -554,32 +513,13 @@ const pageVariants = {
 
               >
 
-                <div className={`bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden handwritten handwritten--${welcomeFont}`}>
+                <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 relative overflow-hidden handwritten">
 
                    {/* Decorative background */}
 
                    <div className="absolute top-0 right-0 w-40 h-40 bg-purple-600/10 blur-[60px] rounded-full -mr-10 -mt-10 pointer-events-none" />
 
-                   <div className="relative z-10 flex items-center justify-between gap-3 mb-4">
-                     <p className="text-[11px] text-zinc-400 font-semibold tracking-wide uppercase">
-                       Шрифт приветствия
-                     </p>
-                     <div className="min-w-[160px]">
-                       <select
-                         value={welcomeFont}
-                         onChange={(e) => setWelcomeFont(e.target.value as WelcomeFontId)}
-                         className={`handwritten handwritten--${welcomeFont} w-full bg-zinc-950/60 border border-zinc-800 text-zinc-200 text-[12px] rounded-lg px-3 py-2 outline-none focus:border-purple-500/60`}
-                         aria-label="Выбрать шрифт приветствия"
-                       >
-                         {WELCOME_FONTS.map((f) => (
-                           <option key={f.id} value={f.id}>
-                             {f.label}
-                           </option>
-                         ))}
-                       </select>
-                     </div>
-                   </div>
-
+                   
                    
 
                    <div className="relative z-10 space-y-4 text-zinc-300 leading-relaxed text-sm sm:text-base">
